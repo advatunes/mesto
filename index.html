@@ -4,116 +4,81 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Куда поехать</title>
+    <title>Место</title>
     <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="root">
     <header class="header">
-      <ul class="header__links">
-        <li><a class="header__link" href="#">Мечты</a></li>
-        <li><a class="header__link" href="#">Ожидания</a></li>
-        <li><a class="header__link" href="#">Реальность</a></li>
-      </ul>
-      <button class="header__report" type="button">Пожаловаться</button>
+      <a class="header__logo" href="#"></a>
     </header>
 
     <main class="content">
-      <section class="intro position__intro">
-        <div class="intro__content">
-          <h1 class="intro__title title_mini">Куда я поеду</h1>
-          <p class="intro__text title">Куда я поеду сразу, как можно будет куда-то поехать</p>
-        </div>
-        <div class="intro__wrap">
-          <img class="intro__image" src="./images/intro-image.jpeg" alt="солнце из окна самолета" />
-        </div>
-      </section>
-
-      <section class="forest">
-        <div class="forest__wrap">
-          <img class="forest__image" src="./images/places-forest.jpeg" alt="водопад в лесу" />
-        </div>
-        <div class="forest__content">
-          <h2 class="forest__title title">Поеду в лес</h2>
-          <p class="forest__text">
-            Лес — экологическая система, биоценоз, в которой главной жизненной формой являются
-            деревья.
-          </p>
-          <p class="forest__text">
-            Лес — составная часть природы, понятие «лес» можно рассматривать на разных уровнях. В
-            глобальном масштабе — это часть биосферы, в локальном — это может быть насаждение. Леса
-            занимают около трети площади суши.
-          </p>
+      <section class="profile">
+        <img class="profile__avatar" src="" alt="аватар"/>
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <p class="profile__job">Исследователь океана</p>
+          <button class="profile__add-button"></button>
         </div>
       </section>
 
-      <section class="mountains">
-        <div class="mountains__content">
-          <h2 class="mountains__title title">Поеду в горы</h2>
-          <p class="mountains__text">
-            Горные системы занимают 64 % поверхности Азии, 36 % — Северной Америки, 25 % — Европы,
-            22 % — Южной Америки, 17 % — Австралии и 3 % — Африки. В целом 24 % земной поверхности
-            приходится на горы. 10 % всех людей живёт на территории гор. В горах берёт своё начало
-            большинство рек Земли.
-          </p>
+      <section class="elements">
+        <div class="element">
+          <img class="element__image" src="" alt="">
+          <div class="element__info">
+            <h2 class="element__name">Карачаевск</h2>
+            <button class="element__like"></button>
+          </div>
         </div>
-        <div class="mountains__wrap">
-          <img class="mountains__image" src="./images/places-mountains.jpeg" alt="гора" />
+        <div class="element">
+          <img class="element__image" src="" alt="">
+          <div class="element__info">
+            <h2 class="element__name">Гора Эльбрус</h2>
+            <button class="element__like"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img class="element__image" src="" alt="">
+          <div class="element__info">
+            <h2 class="element__name">Домбай</h2>
+            <button class="element__like"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img class="element__image" src="" alt="">
+          <div class="element__info">
+            <h2 class="element__name">Гора Эльбрус</h2>
+            <button class="element__like"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img class="element__image" src="" alt="">
+          <div class="element__info">
+            <h2 class="element__name">Домбай</h2>
+            <button class="element__like"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img class="element__image" src="" alt="">
+          <div class="element__info">
+            <h2 class="element__name">Карачаево-Черкесия</h2>
+            <button class="element__like"></button>
+          </div>
         </div>
       </section>
 
-      <section class="black-sea">
-        <div class="black-sea__wrap">
-          <img class="black-sea__image" src="./images/places-black-sea.jpeg" alt="черное море" />
+      <div class="popup">
+        <div class="popup__container">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input class="popup__name" type="text">
+          <input class="popup__job" type="text">
+          <button class="popup__submit">Сохранить</button>
         </div>
-        <div class="black-sea__content">
-          <h2 class="black-sea__title title">Поеду на Чёрное море</h2>
-          <p class="black-sea__text">
-            Я уплыву туда, где ни разу я не был, туда, где никто раньше не был. Никто и никогда
-            раньше не был, я уплыву. Я позову тебя смотреть на синее небо и пить по капле синее
-            небо, и падать в это синее небо, я позову.
-          </p>
-          <p class="black-sea__text">
-            Уеду я на Чёрное-Чёрное море, на Чёрное-Чёрное море, на Чёрное-Чёрное море уеду я. Уеду
-            я на Чёрное-Чёрное море, на Чёрное-Чёрное море, на Чёрное-Чёрное море.
-          </p>
-          <p class="black-sea__text">Уеду я</p>
-        </div>
-      </section>
-
-      <section class="people position__people">
-        <h2 class="people__title title_mini">Люди</h2>
-        <p class="people__text title">Что говорят и говорили люди о путешествиях</p>
-        <ul class="people__list">
-          <li class="people__item">
-            <h3 class="people__author">Иван Бунин</h3>
-            <p class="people__blockquote">
-              Человека делают счастливым три вещи: любовь, интересная работа и возможность
-              путешествовать.
-            </p>
-          </li>
-          <li class="people__item">
-            <h3 class="people__author">Альбер Камю</h3>
-            <p class="people__blockquote">
-              Путешествие как самая великая и серьезная наука помогает нам вновь обрести себя.
-            </p>
-          </li>
-          <li class="people__item">
-            <h3 class="people__author">Норвежская пословица</h3>
-            <p class="people__blockquote">Лишь тот, кто странствует, открывает новые пути.</p>
-          </li>
-          <li class="people__item">
-            <h3 class="people__author">Мария Захарова</h3>
-            <p class="people__blockquote">
-              В принципе зарубежная поездка – это серьезнейшее, ответственнейшее и очень рискованное
-              предприятие.
-            </p>
-          </li>
-        </ul>
-      </section>
+      </div>
     </main>
 
     <footer class="footer">
-      <p class="footer__text">© 2022</p>
+      <p class="footer__text">© 2022 Mesto Russia</p>
     </footer>
   </body>
 </html>
