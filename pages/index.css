@@ -1,0 +1,51 @@
+@import url(../vendor/normalize.css);
+@import url(../vendor/fonts/font.css);
+@import url(../blocks/root/root.css);
+@import url(../blocks/title/title.css);
+@import url(../blocks/title/title_mini.css);
+
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__link/header__link.css);
+@import url(../blocks/header/__links/header__links.css);
+@import url(../blocks/header/__report/header__report.css);
+
+@import url(../blocks/intro/intro.css);
+@import url(../blocks/intro/__wrap/intro__wrap.css);
+@import url(../blocks/positon/__intro/position__intro.css);
+@import url(../blocks/intro/__content/intro__content.css);
+@import url(../blocks/intro/__title/intro__title.css);
+@import url(../blocks/intro/__text/intro__text.css);
+@import url(../blocks/intro/__image/intro__image.css);
+
+@import url(../blocks/forest/forest.css);
+@import url(../blocks/forest/__wrap/forest__wrap.css);
+@import url(../blocks/forest/__content/forest__content.css);
+@import url(../blocks/forest/__title/forest__title.css);
+@import url(../blocks/forest/__text/forest__text.css);
+@import url(../blocks/forest/__image/forest__image.css);
+
+@import url(../blocks/mountains/mountains.css);
+@import url(../blocks/mountains/__wrap/mountains__wrap.css);
+@import url(../blocks/mountains/__content/mountains__content.css);
+@import url(../blocks/mountains/__text/mountains__text.css);
+@import url(../blocks/mountains/__title/mountains__title.css);
+@import url(../blocks/mountains/__image/mountains__image.css);
+
+@import url(../blocks/black-sea/black-sea.css);
+@import url(../blocks/black-sea/__wrap/black-sea__wrap.css);
+@import url(../blocks/black-sea/__content/black-sea__content.css);
+@import url(../blocks/black-sea/__text/black-sea__text.css);
+@import url(../blocks/black-sea/__title/black-sea__title.css);
+@import url(../blocks/black-sea/__image/black-sea__image.css);
+
+@import url(../blocks/people/people.css);
+@import url(../blocks/positon/__people/position__people.css);
+@import url(../blocks/people/__title/people__title.css);
+@import url(../blocks/people/__item/people__item.css);
+@import url(../blocks/people/__author/people__author.css);
+@import url(../blocks/people/__blockquote/people__blockquote.css);
+@import url(../blocks/people/__text/people__text.css);
+@import url(../blocks/people/__list/people__list.css);
+
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__text/footer__text.css);

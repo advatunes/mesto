@@ -1,0 +1,10 @@
+.intro {
+    display: flex;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 725px) {
+    .intro {
+      flex-direction: column-reverse;
+    }
+  }

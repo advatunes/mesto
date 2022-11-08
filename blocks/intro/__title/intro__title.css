@@ -1,0 +1,10 @@
+.intro__title {
+    margin: 0;
+    padding-bottom: 30px;
+}
+
+@media screen and (max-width: 420px) {
+    .intro__title {
+        padding-bottom: 15px;
+    }
+  }
