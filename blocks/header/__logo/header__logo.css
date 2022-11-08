@@ -1,3 +1,10 @@
 .header__logo {
-    background-image: url(../__logo/header__logo.css);
+    display: block;
+    background-image: url(../../../images/header__logo.svg);
+    background-repeat: no-repeat;
+    width: 142px;
+    height: 33px;
+    padding-bottom: 41px;
+    color: #fff;
 }
+

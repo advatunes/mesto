@@ -1,0 +1,13 @@
+.profile__edit-button {
+    position: absolute;
+    top: 16px;
+    left: 310px;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #fff;
+    background-image: url(../../../images/pencil.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #000;
+    cursor: pointer;
+}
