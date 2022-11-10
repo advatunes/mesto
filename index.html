@@ -16,8 +16,7 @@
       <section class="profile1 content__profile">
         <img class="profile__avatar" src="./images/avatar.jpg" alt="аватар" />
         <div class="profile__info">
-          <h1 class="profile__name">
-            Жак-Ив Кусто
+          <h1 class="profile__name">Жак-Ив Кусто
             <button class="profile__edit-button"></button>
           </h1>
           <p class="profile__job">Исследователь океана</p>
@@ -69,20 +68,22 @@
           </div>
         </div>
       </section>
-
-      <div class="popup">
-        <div class="popup__container">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input class="popup__name" type="text" placeholder="Жак-Ив Кусто" />
-          <input class="popup__job" type="text" placeholder="Исследователь океана" />
-          <button class="popup__submit">Сохранить</button>
-          <button class="popup__close-icon"></button>
-        </div>
-      </div>
     </main>
 
     <footer class="footer">
       <p class="footer__text">© 2022 Mesto Russia</p>
     </footer>
+
+    <div class="popup">
+      <form class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input class="popup__name" type="text" />
+        <input class="popup__job" type="text" />
+        <button type="submit" class="popup__submit">Сохранить</button>
+        <button class="popup__close-icon"></button>
+      </form>
+    </div>
+
+  <script src="./blocks/script/index.js"></script>
   </body>
 </html>
