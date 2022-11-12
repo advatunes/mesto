@@ -4,10 +4,8 @@ let popupElement = document.querySelector(".popup"),
   popupCloseButton = popupElement.querySelector(".popup__close-icon"),
   nameInput = popupElement.querySelector(".popup__name"),
   jobInput = popupElement.querySelector(".popup__job"),
-  popupSaveButton = popupElement.querySelector(".popup__submit"),
   profileName = document.querySelector(".profile__name"),
-  profileJob = document.querySelector(".profile__job"),
-  likeButton = document.querySelectorAll(".element__like");
+  profileJob = document.querySelector(".profile__job");
 
 function popupOpen() {
   popupElement.classList.add("popup_opened");
@@ -29,10 +27,4 @@ popupForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
 });
 
-// function addLike() {
-//   likeButton.classList.add("element__like_active");
-// }
 
-likeButton.addEventListener("click", function addLike() {
-  likeButton.classList.add("element__like_active");
-});

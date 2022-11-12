@@ -1,13 +1,13 @@
 .profile__info {
-    margin-right: 260px;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    margin-right: 230px;
+    margin-left: 20px;
+
 }
 
 @media screen and (max-width: 900px) {
     .profile__info {
         margin-left: 20px;
-        margin-right: 80px;
+        margin-right: 20px;
     }
 }
 
