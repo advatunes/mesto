@@ -18,20 +18,14 @@ function popupClose() {
 popupOpenButton.addEventListener('click', popupOpen);
 popupCloseButton.addEventListener('click', popupClose);
 
-
 nameInput.value = profileName.textContent;
 jobInput.value = profileJob.textContent;
 
-function formSubmitHandler(evt) {
+
+popupSaveButton.addEventListener('submit', function(evt) {
   evt.preventDefault();
-
-  nameInput.value='';
   profileName.textContent = nameInput.value;
-
-}
-
-popupSaveButton.addEventListener("submit", formSubmitHandler);
-
-console.log(nameInput);
+  profileJob.textContent = jobInput.value;
+});
 
 

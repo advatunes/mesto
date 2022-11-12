@@ -16,9 +16,10 @@
       <section class="profile1 content__profile">
         <img class="profile__avatar" src="./images/avatar.jpg" alt="аватар" />
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто
+          <div class="profile__name-wrap">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button class="profile__edit-button"></button>
-          </h1>
+          </div>
           <p class="profile__job">Исследователь океана</p>
         </div>
         <button class="profile__add-button"></button>
@@ -26,14 +27,22 @@
 
       <section class="elements">
         <div class="element">
-          <img class="element__image" src="./images/karach.jpg" alt="Карачаевск" />
+          <img
+            class="element__image"
+            src="./images/karach.jpg"
+            alt="Карачаевск"
+          />
           <div class="element__info">
             <h2 class="element__name">Карачаевск</h2>
             <button class="element__like"></button>
           </div>
         </div>
         <div class="element">
-          <img class="element__image" src="./images/elbrus.jpg" alt="Гора Эльбрус" />
+          <img
+            class="element__image"
+            src="./images/elbrus.jpg"
+            alt="Гора Эльбрус"
+          />
           <div class="element__info">
             <h2 class="element__name">Гора Эльбрус</h2>
             <button class="element__like"></button>
@@ -47,7 +56,11 @@
           </div>
         </div>
         <div class="element">
-          <img class="element__image" src="./images/elbrus.jpg" alt="Гора Эльбрус" />
+          <img
+            class="element__image"
+            src="./images/elbrus.jpg"
+            alt="Гора Эльбрус"
+          />
           <div class="element__info">
             <h2 class="element__name">Гора Эльбрус</h2>
             <button class="element__like"></button>
@@ -61,7 +74,11 @@
           </div>
         </div>
         <div class="element">
-          <img class="element__image" src="./images/karach.jpg" alt="Карачаево-Черкесия" />
+          <img
+            class="element__image"
+            src="./images/karach.jpg"
+            alt="Карачаево-Черкесия"
+          />
           <div class="element__info">
             <h2 class="element__name">Карачаево-Черкесия</h2>
             <button class="element__like"></button>
@@ -77,13 +94,13 @@
     <div class="popup">
       <form class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input class="popup__name" type="text" />
-        <input class="popup__job" type="text" />
-        <button type="submit" class="popup__submit">Сохранить</button>
+        <input class="popup__name" type="text" maxlength="30" />
+        <input class="popup__job" type="text" maxlength="100" />
+        <button class="popup__submit" type="submit" >Сохранить</button>
         <button class="popup__close-icon"></button>
       </form>
     </div>
 
-  <script src="./blocks/script/index.js"></script>
+    <script src="./blocks/script/index.js"></script>
   </body>
 </html>
