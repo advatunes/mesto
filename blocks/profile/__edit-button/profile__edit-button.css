@@ -1,20 +1,19 @@
 .profile__edit-button {
-    width: 24px;
-    height: 24px;
-    border: 1px solid #fff;
-    background-image: url(../../../images/pencil.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: #000;
-    cursor: pointer;
-    transition: all 0.2s;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #fff;
+  background-image: url(../../../images/pencil.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .profile__edit-button:hover {
-  border: 1px solid rgba(255,255,255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   background-image: url(../../../images/pencil_hover.svg);
 }
-
 
 @media screen and (max-width: 725px) {
   .profile__edit-button {

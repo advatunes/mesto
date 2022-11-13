@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css"/>
+    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="root">
     <header class="header">
-      <a class="header__logo" href="#"></a>
+      <a class="header__logo" href="#">
+        <img class="header__logo-img" src="./images/header__logo.svg" alt="логотип" />
+      </a>
     </header>
 
     <main class="content">
@@ -18,72 +20,60 @@
         <div class="profile__info">
           <div class="profile__name-wrap">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button"></button>
+            <button
+              class="profile__edit-button"
+              type="button"
+              aria-label="Редактировать профиль"
+            ></button>
           </div>
           <p class="profile__job">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button" aria-label="Добавить карточку"></button>
       </section>
 
       <section class="elements">
-        <div class="element">
-          <img
-            class="element__image"
-            src="./images/karach.jpg"
-            alt="Карачаевск"
-          />
+        <article class="element">
+          <img class="element__image" src="./images/karach.jpg" alt="Карачаевск" />
           <div class="element__info">
             <h2 class="element__name">Карачаевск</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button" aria-label="лайк"></button>
           </div>
-        </div>
-        <div class="element">
-          <img
-            class="element__image"
-            src="./images/elbrus.jpg"
-            alt="Гора Эльбрус"
-          />
+        </article>
+        <article class="element">
+          <img class="element__image" src="./images/elbrus.jpg" alt="Гора Эльбрус" />
           <div class="element__info">
             <h2 class="element__name">Гора Эльбрус</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button" aria-label="лайк"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__image" src="./images/dombay.jpg" alt="Домбай" />
           <div class="element__info">
             <h2 class="element__name">Домбай</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button" aria-label="лайк"></button>
           </div>
-        </div>
-        <div class="element">
-          <img
-            class="element__image"
-            src="./images/elbrus.jpg"
-            alt="Гора Эльбрус"
-          />
+        </article>
+        <article class="element">
+          <img class="element__image" src="./images/elbrus.jpg" alt="Гора Эльбрус" />
           <div class="element__info">
             <h2 class="element__name">Гора Эльбрус</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button" aria-label="лайк"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img class="element__image" src="./images/dombay.jpg" alt="Домбай" />
           <div class="element__info">
             <h2 class="element__name">Домбай</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button" aria-label="лайк"></button>
           </div>
-        </div>
-        <div class="element">
-          <img
-            class="element__image"
-            src="./images/karach.jpg"
-            alt="Карачаево-Черкесия"
-          />
+        </article>
+        <article class="element">
+          <img class="element__image" src="./images/karach.jpg" alt="Карачаево-Черкесия" />
           <div class="element__info">
             <h2 class="element__name">Карачаево-Черкесия</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button" aria-label="лайк"></button>
           </div>
-        </div>
+        </article>
       </section>
     </main>
 
@@ -92,13 +82,15 @@
     </footer>
 
     <div class="popup">
-      <form class="popup__container">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <input class="popup__name" type="text" maxlength="30" />
-        <input class="popup__job" type="text" maxlength="100" />
-        <button class="popup__submit" type="submit" >Сохранить</button>
-        <button class="popup__close-icon" type="button"></button>
-      </form>
+      <div class="popup__container">
+        <form class="popup__form" name="popupForm">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input class="popup__input popup__input_name" name="name" type="text" maxlength="30" />
+          <input class="popup__input popup__input_job" name="job" type="text" maxlength="100" />
+          <button class="popup__submit" type="submit" aria-label="Сохранить">Сохранить</button>
+        </form>
+        <button class="popup__close-icon" type="button" aria-label="закрыть"></button>
+      </div>
     </div>
 
     <script src="./blocks/script/index.js"></script>
