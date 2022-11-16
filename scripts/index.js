@@ -30,3 +30,12 @@ function editProfileValue(evt) {
 popupForm.addEventListener('submit', editProfileValue);
 popupOpenButton.addEventListener('click', openPopup);
 popupCloseButton.addEventListener('click', closePopup);
+
+let likeButtons = document.querySelectorAll('.element__like');
+
+// Добавление/удаление лайков
+likeButtons.forEach(function (likeButton) {
+  likeButton.addEventListener('click', function () {
+    likeButton.classList.toggle('element__like_active');
+  });
+});
