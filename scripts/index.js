@@ -72,14 +72,21 @@ const createCard = (data) => {
   cardElementTitle.textContent = data.name;
   cardElementImage.src = data.link;
   cardElementImage.alt = data.name;
-
   // Вызов попапа увеличения картинки
 
   cardElementImage.addEventListener('click', () => {
     openPopup(popupImageElement);
     popupImageTitle.textContent = data.name;
     popupImagePic.src = data.link;
+    popupImagePic.alt = data.name;
   });
+
+  // Лайки
+  const likeButton = cardElement.querySelector('.element__like');
+  likeButton.addEventListener('click', (e) => {
+    e.target.classList.toggle('element__like_active');
+  });
+
   // Удаление карточки
   const deleteButton = cardElement.querySelector('.element__trash-icon');
   deleteButton.addEventListener('click', (e) => {
@@ -97,12 +104,6 @@ popupImageCloseButton.addEventListener('click', () => {
 const renderCard = (data, elementsContainer) => {
   const element = createCard(data);
   elementsContainer.prepend(element);
-
-  // Лайки
-  const likeButton = element.querySelector('.element__like');
-  likeButton.addEventListener('click', (e) => {
-    e.target.classList.toggle('element__like_active');
-  });
 };
 
 initialCards.forEach((data) => {
