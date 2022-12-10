@@ -24,26 +24,41 @@ const popupNameElement = document.querySelector('.popup_name'),
   popupImagePic = popupImageElement.querySelector('.popup_image__pic'),
   popupImageTitle = popupImageElement.querySelector('.popup_image__title');
 
-// Открытие/закрытие попапа
-const togglePopup = (popup) => {
-  popup.classList.toggle('popup_opened');
+// Открытие попапа
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keyup', handleKeyDown);
+};
+
+// Закрытие попапа
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keyup', handleKeyDown);
 };
 
 // Кнопки откр/закр профиля
 popupNameOpenButton.addEventListener('click', () => {
-  togglePopup(popupNameElement);
+  openPopup(popupNameElement);
 });
 popupNameCloseButton.addEventListener('click', () => {
-  togglePopup(popupNameElement);
+  closePopup(popupNameElement);
 });
 
 // Кнопки откр/закр элементов
 popupPlaceOpenButton.addEventListener('click', () => {
-  togglePopup(popupPlaceElement);
+  openPopup(popupPlaceElement);
 });
 popupPlaceCloseButton.addEventListener('click', () => {
-  togglePopup(popupPlaceElement);
+  closePopup(popupPlaceElement);
 });
+
+// Закрытие попапа по клавише Esc
+const handleKeyDown = (e) => {
+  if (e.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
+  };
+};
 
 // Перенос текстовых полей
 nameInput.value = profileName.textContent;
@@ -52,7 +67,7 @@ jobInput.value = profileJob.textContent;
 const editProfileValue = (e) => {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  togglePopup(popupNameElement);
+  closePopup(popupNameElement);
   e.preventDefault();
 };
 
@@ -70,9 +85,8 @@ const createCard = (data) => {
   cardElementImage.src = data.link;
 
   // Вызов попапа увеличения картинки
-
   cardElementImage.addEventListener('click', () => {
-    togglePopup(popupImageElement);
+    openPopup(popupImageElement);
     popupImageTitle.textContent = data.name;
     popupImagePic.src = data.link;
   });
@@ -82,7 +96,7 @@ const createCard = (data) => {
 
 // Закрытие попапа увеличения картинки
 popupImageCloseButton.addEventListener('click', () => {
-  togglePopup(popupImageElement);
+  closePopup(popupImageElement);
 });
 
 // Добавление карточки в верстку
@@ -122,33 +136,39 @@ const addCard = (e) => {
 
 popupPlaceForm.addEventListener('submit', addCard);
 
-
-
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit',
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
+  errorClass: 'popup__error_visible',
 };
 
- // Проверка валидности
+// Проверка валидности
 
- const hasValidInput  = (inputList) => {
-  return inputList.every(inputElement => inputElement.validity.valid);
- }
+const hasValidInput = (inputList) => {
+  return inputList.every((inputElement) => inputElement.validity.valid);
+};
 
-const toggleButtonState = (inputList, buttonElement) => {
-  if (hasValidInput(inputList)) {
-    buttonElement.classList.remove(config.inactiveButtonClass);
-    buttonElement.disabled = ''
+const checkInputValidity = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.disabled = 'disabled'
+    hideInputError(formElement, inputElement);
   }
 };
 
+// Включение и отключение submit
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasValidInput(inputList)) {
+    buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.disabled = '';
+  } else {
+    buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.disabled = 'disabled';
+  }
+};
 
 // Отображение ошибки
 const showInputError = (formElement, inputElement, errorMessage) => {
@@ -166,22 +186,7 @@ const hideInputError = (formElement, inputElement) => {
   errorElement.textContent = '';
 };
 
-
-const checkInputValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-};
-
-
-// Включение и отключение submit
-
-
 // Добавление обработчиков
-
-
 const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
@@ -194,16 +199,13 @@ const setEventListeners = (formElement) => {
   });
 };
 
-
-
 const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  const { formSelector, ...rest } = config;
+  const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (e) => e.preventDefault());
     setEventListeners(formElement);
   });
 };
 
-
 enableValidation(config);
-
