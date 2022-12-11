@@ -21,24 +21,17 @@ const popupNameElement = document.querySelector('.popup-name'),
   //
   popupImageElement = document.querySelector('.popup-image'),
   popupImageCloseButton = popupImageElement.querySelector('.popup__close-icon'),
-  popupImagePic = popupImageElement.querySelector('.popup-image__pic'),
-  popupImageTitle = popupImageElement.querySelector('.popup-image__title');
+  popupImagePic = popupImageElement.querySelector('.popup_image__pic'),
+  popupImageTitle = popupImageElement.querySelector('.popup_image__title');
 
 // Открытие/закрытие попапа
-const openPopup = (popup) => {
-  popup.classList.add('popup_opened');
-};
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
+const togglePopup = (popup) => {
+  popup.classList.toggle('popup_opened');
 };
 
 // Кнопки откр/закр профиля
 popupNameOpenButton.addEventListener('click', () => {
-  // Перенос текстовых полей
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-
-  openPopup(popupNameElement);
+  togglePopup(popupNameElement);
 });
 popupNameCloseButton.addEventListener('click', () => {
   closePopup(popupNameElement);
@@ -51,6 +44,10 @@ popupPlaceOpenButton.addEventListener('click', () => {
 popupPlaceCloseButton.addEventListener('click', () => {
   closePopup(popupPlaceElement);
 });
+
+// Перенос текстовых полей
+nameInput.value = profileName.textContent;
+jobInput.value = profileJob.textContent;
 
 const editProfileValue = (e) => {
   profileName.textContent = nameInput.value;
@@ -73,7 +70,6 @@ const createCard = (data) => {
   cardElementImage.src = data.link;
   cardElementImage.alt = data.name;
   // Вызов попапа увеличения картинки
-
   cardElementImage.addEventListener('click', () => {
     openPopup(popupImageElement);
     popupImageTitle.textContent = data.name;
@@ -126,3 +122,4 @@ const addCard = (e) => {
 };
 
 popupPlaceForm.addEventListener('submit', addCard);
+
