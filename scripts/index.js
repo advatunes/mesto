@@ -21,17 +21,27 @@ const popupNameElement = document.querySelector('.popup-name'),
   //
   popupImageElement = document.querySelector('.popup-image'),
   popupImageCloseButton = popupImageElement.querySelector('.popup__close-icon'),
-  popupImagePic = popupImageElement.querySelector('.popup_image__pic'),
-  popupImageTitle = popupImageElement.querySelector('.popup_image__title');
+  popupImagePic = popupImageElement.querySelector('.popup-image__pic'),
+  popupImageTitle = popupImageElement.querySelector('.popup-image__title');
 
-// Открытие/закрытие попапа
-const togglePopup = (popup) => {
-  popup.classList.toggle('popup_opened');
+// Открытие попапа
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', handleKeyDown);
+  popup.addEventListener('click', handleOutsideClick);
+
+};
+
+// Закрытие попапа
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', handleKeyDown);
+  popup.removeEventListener('click', handleOutsideClick);
 };
 
 // Кнопки откр/закр профиля
 popupNameOpenButton.addEventListener('click', () => {
-  togglePopup(popupNameElement);
+  openPopup(popupNameElement);
 });
 popupNameCloseButton.addEventListener('click', () => {
   closePopup(popupNameElement);
@@ -44,6 +54,24 @@ popupPlaceOpenButton.addEventListener('click', () => {
 popupPlaceCloseButton.addEventListener('click', () => {
   closePopup(popupPlaceElement);
 });
+
+// Закрытие попапа по клавише Esc
+const handleKeyDown = (e) => {
+  if (e.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
+  };
+};
+
+// Закрытие попапа по клику
+
+const handleOutsideClick = (e) => {
+  if (!e.target.closest('.popup__container')) {
+     closePopup(e.target);
+  };
+};
+
+
 
 // Перенос текстовых полей
 nameInput.value = profileName.textContent;
@@ -62,32 +90,20 @@ popupNameForm.addEventListener('submit', editProfileValue);
 const elementTemplate = document.querySelector('#element-template').content;
 
 const createCard = (data) => {
-  const cardElement = elementTemplate.querySelector('.element').cloneNode(true),
+  let cardElement = elementTemplate.querySelector('.element').cloneNode(true),
     cardElementImage = cardElement.querySelector('.element__image'),
     cardElementTitle = cardElement.querySelector('.element__name');
 
   cardElementTitle.textContent = data.name;
   cardElementImage.src = data.link;
-  cardElementImage.alt = data.name;
+
   // Вызов попапа увеличения картинки
   cardElementImage.addEventListener('click', () => {
     openPopup(popupImageElement);
     popupImageTitle.textContent = data.name;
     popupImagePic.src = data.link;
-    popupImagePic.alt = data.name;
   });
 
-  // Лайки
-  const likeButton = cardElement.querySelector('.element__like');
-  likeButton.addEventListener('click', (e) => {
-    e.target.classList.toggle('element__like_active');
-  });
-
-  // Удаление карточки
-  const deleteButton = cardElement.querySelector('.element__trash-icon');
-  deleteButton.addEventListener('click', (e) => {
-    e.target.closest('.element').remove();
-  });
   return cardElement;
 };
 
@@ -98,8 +114,22 @@ popupImageCloseButton.addEventListener('click', () => {
 
 // Добавление карточки в верстку
 const renderCard = (data, elementsContainer) => {
-  const element = createCard(data);
+  let element = createCard(data);
   elementsContainer.prepend(element);
+
+  // Удаление карточки
+  let deleteButton = element.querySelector('.element__trash-icon');
+  deleteButton.addEventListener('click', (e) => {
+    e.target.closest('.element').remove();
+  });
+  // Лайки
+  let likeButton = element.querySelector('.element__like');
+  likeButton.addEventListener('click', (e) => {
+    e.target.classList.toggle('element__like_active');
+  });
+
+  placeInput.value = '';
+  linkInput.value = '';
 };
 
 initialCards.forEach((data) => {
@@ -108,14 +138,10 @@ initialCards.forEach((data) => {
 
 const addCard = (e) => {
   e.preventDefault();
-  const card = {
+  let card = {
     name: placeInput.value,
     link: linkInput.value,
-    alt: placeInput.value,
   };
-
-  placeInput.value = '';
-  linkInput.value = '';
 
   renderCard(card, elementsContainer);
   closePopup(popupPlaceElement);
