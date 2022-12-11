@@ -148,4 +148,3 @@ const addCard = (e) => {
 };
 
 popupPlaceForm.addEventListener('submit', addCard);
-
