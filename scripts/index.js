@@ -1,28 +1,28 @@
 import { initialCards } from './initialCards.js';
 
-const popupNameElement = document.querySelector('.popup_name'),
+const popupNameElement = document.querySelector('.popup-name'),
   popupNameForm = popupNameElement.querySelector('.popup__form'),
   popupNameOpenButton = document.querySelector('.profile__edit-button'),
   popupNameCloseButton = popupNameElement.querySelector('.popup__close-icon'),
   //
-  nameInput = popupNameElement.querySelector('.popup_name__input_field_name'),
-  jobInput = popupNameElement.querySelector('.popup_name__input_field_job'),
+  nameInput = popupNameElement.querySelector('.popup-name__input-name'),
+  jobInput = popupNameElement.querySelector('.popup-name__input-job'),
   profileName = document.querySelector('.profile__name'),
   profileJob = document.querySelector('.profile__job'),
   //
-  popupPlaceElement = document.querySelector('.popup_place'),
+  popupPlaceElement = document.querySelector('.popup-place'),
   popupPlaceForm = popupPlaceElement.querySelector('.popup__form'),
   popupPlaceOpenButton = document.querySelector('.profile__add-button'),
   popupPlaceCloseButton = popupPlaceElement.querySelector('.popup__close-icon'),
   //
   elementsContainer = document.querySelector('.elements'),
-  placeInput = popupPlaceElement.querySelector('.popup_place__input_field_place'),
-  linkInput = popupPlaceElement.querySelector('.popup_place__input_field_link'),
+  placeInput = popupPlaceElement.querySelector('.popup-place__input-place'),
+  linkInput = popupPlaceElement.querySelector('.popup-place__input-link'),
   //
-  popupImageElement = document.querySelector('.popup_image'),
+  popupImageElement = document.querySelector('.popup-image'),
   popupImageCloseButton = popupImageElement.querySelector('.popup__close-icon'),
-  popupImagePic = popupImageElement.querySelector('.popup_image__pic'),
-  popupImageTitle = popupImageElement.querySelector('.popup_image__title');
+  popupImagePic = popupImageElement.querySelector('.popup-image__pic'),
+  popupImageTitle = popupImageElement.querySelector('.popup-image__title');
 
 // Открытие попапа
 const openPopup = (popup) => {
@@ -144,7 +144,7 @@ const addCard = (e) => {
   };
 
   renderCard(card, elementsContainer);
-  togglePopup(popupPlaceElement);
+  closePopup(popupPlaceElement);
 };
 
 popupPlaceForm.addEventListener('submit', addCard);
