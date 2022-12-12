@@ -52,7 +52,13 @@ const config = {
   const setEventListeners = (formElement) => {
     const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
     const buttonElement = formElement.querySelector(config.submitButtonSelector);
-    toggleButtonState(inputList, buttonElement);
+
+    formElement.addEventListener('reset', () => {
+      setTimeout(() => {
+        toggleButtonState(inputList, buttonElement);
+      }, 0);
+    });
+
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
         checkInputValidity(formElement, inputElement);
@@ -66,7 +72,7 @@ const config = {
     const formList = Array.from(document.querySelectorAll(formSelector));
     formList.forEach((formElement) => {
       formElement.addEventListener('submit', (e) => e.preventDefault());
-      setEventListeners(formElement);
+      setEventListeners(formElement, config);
     });
   };
 
