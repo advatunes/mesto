@@ -3,7 +3,6 @@ import { initialCards } from './initialCards.js';
 const popupNameElement = document.querySelector('.popup-name'),
   popupNameForm = popupNameElement.querySelector('.popup__form'),
   popupNameOpenButton = document.querySelector('.profile__edit-button'),
-
   closeButtons = document.querySelectorAll('.popup__close-icon'),
   //
   nameInput = popupNameElement.querySelector('.popup-name__input-name'),
@@ -25,7 +24,7 @@ const popupNameElement = document.querySelector('.popup-name'),
   popupImagePic = popupImageElement.querySelector('.popup-image__pic'),
   popupImageTitle = popupImageElement.querySelector('.popup-image__title');
 
-  console.log();
+console.log();
 // Открытие попапа
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
@@ -42,10 +41,10 @@ const closePopup = (popup) => {
 
 // Кнопки откр профиля
 popupNameOpenButton.addEventListener('click', () => {
-  openPopup(popupNameElement)
-    // Перенос текстовых полей
-nameInput.value = profileName.textContent
-jobInput.value = profileJob.textContent;
+  openPopup(popupNameElement);
+  // Перенос текстовых полей
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
 });
 
 // Кнопки откр элементов
@@ -74,8 +73,6 @@ const handleOutsideClick = (e) => {
     closePopup(e.target);
   }
 };
-
-
 
 const editProfileValue = (e) => {
   profileName.textContent = nameInput.value;
@@ -112,7 +109,7 @@ const createCard = (data) => {
     e.target.classList.toggle('element__like_active');
   });
 
- // Удаление карточки
+  // Удаление карточки
   const deleteButton = cardElement.querySelector('.element__trash-icon');
   deleteButton.addEventListener('click', (e) => {
     e.target.closest('.element').remove();
@@ -136,15 +133,12 @@ const addCard = (e) => {
   const card = {
     name: placeInput.value,
     link: linkInput.value,
-    alt: placeInput.value
   };
-
-
+  
+  e.target.reset();
   renderCard(card, elementsContainer);
   closePopup(popupPlaceElement);
-
 };
 
 popupPlaceForm.addEventListener('submit', addCard);
-popupPlaceForm.addEventListener('submit', (e) => {e.target.reset()});
 
