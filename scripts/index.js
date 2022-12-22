@@ -1,4 +1,5 @@
 import { initialCards } from './initialCards.js';
+import { Card } from './Card.js';
 
 const popupNameElement = document.querySelector('.popup-name'),
   popupNameForm = popupNameElement.querySelector('.popup__form'),
@@ -83,45 +84,12 @@ const editProfileValue = (e) => {
 
 popupNameForm.addEventListener('submit', editProfileValue);
 
-// Создание карточки
-const elementTemplate = document.querySelector('#element-template').content;
-
-const createCard = (data) => {
-  const cardElement = elementTemplate.querySelector('.element').cloneNode(true),
-    cardElementImage = cardElement.querySelector('.element__image'),
-    cardElementTitle = cardElement.querySelector('.element__name');
-
-  cardElementTitle.textContent = data.name;
-  cardElementImage.src = data.link;
-  cardElementImage.alt = data.name;
-
-  // Вызов попапа увеличения картинки
-  cardElementImage.addEventListener('click', () => {
-    openPopup(popupImageElement);
-    popupImageTitle.textContent = data.name;
-    popupImagePic.src = data.link;
-    popupImagePic.alt = data.name;
-  });
-
-  // Лайки
-  const likeButton = cardElement.querySelector('.element__like');
-  likeButton.addEventListener('click', (e) => {
-    e.target.classList.toggle('element__like_active');
-  });
-
-  // Удаление карточки
-  const deleteButton = cardElement.querySelector('.element__trash-icon');
-  deleteButton.addEventListener('click', (e) => {
-    e.target.closest('.element').remove();
-  });
-
-  return cardElement;
-};
 
 // Добавление карточки в верстку
 const renderCard = (data, elementsContainer) => {
-  const element = createCard(data);
-  elementsContainer.prepend(element);
+  const card = new Card(data, '#element-template');
+  const cardElement = card.generateCard();
+  elementsContainer.prepend(cardElement);
 };
 
 initialCards.forEach((data) => {
@@ -134,11 +102,10 @@ const addCard = (e) => {
     name: placeInput.value,
     link: linkInput.value,
   };
-  
+
   e.target.reset();
   renderCard(card, elementsContainer);
   closePopup(popupPlaceElement);
 };
 
 popupPlaceForm.addEventListener('submit', addCard);
-
