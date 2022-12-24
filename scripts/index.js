@@ -25,7 +25,7 @@ const popupNameElement = document.querySelector('.popup-name'),
   popupImagePic = popupImageElement.querySelector('.popup-image__pic'),
   popupImageTitle = popupImageElement.querySelector('.popup-image__title');
 
-console.log();
+
 // Открытие попапа
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
@@ -40,7 +40,7 @@ const closePopup = (popup) => {
   popup.removeEventListener('mousedown', handleOutsideClick);
 };
 
-// Кнопки откр профиля
+// Кнопки откр попапа профиля
 popupNameOpenButton.addEventListener('click', () => {
   openPopup(popupNameElement);
   // Перенос текстовых полей
@@ -48,7 +48,7 @@ popupNameOpenButton.addEventListener('click', () => {
   jobInput.value = profileJob.textContent;
 });
 
-// Кнопки откр элементов
+// Кнопки откр попапа добавления элементов
 popupPlaceOpenButton.addEventListener('click', () => {
   openPopup(popupPlaceElement);
 });
@@ -84,16 +84,24 @@ const editProfileValue = (e) => {
 
 popupNameForm.addEventListener('submit', editProfileValue);
 
+  // Увеличение картинки
+
+const handleCardOpen = (name, link) => {
+  openPopup(popupImageElement);
+  popupImageTitle.textContent = name;
+  popupImagePic.src = link;
+  popupImagePic.alt = name;
+};
 
 // Добавление карточки в верстку
 const renderCard = (data, elementsContainer) => {
-  const card = new Card(data, '#element-template');
+  const card = new Card(data, '#element-template', handleCardOpen);
   const cardElement = card.generateCard();
   elementsContainer.prepend(cardElement);
 };
 
 initialCards.forEach((data) => {
-  renderCard(data, elementsContainer);
+  renderCard(data, elementsContainer, handleCardOpen);
 });
 
 const addCard = (e) => {
@@ -109,3 +117,5 @@ const addCard = (e) => {
 };
 
 popupPlaceForm.addEventListener('submit', addCard);
+
+

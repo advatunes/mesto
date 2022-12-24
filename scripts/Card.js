@@ -1,8 +1,9 @@
 class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardOpen) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._handleCardOpen = handleCardOpen;
   }
 
   _getTemplate() {
@@ -26,32 +27,27 @@ class Card {
   }
 
   _setEventListeners() {
-    // Вызов попапа увеличения картинки
     this._element.querySelector('.element__image').addEventListener('click', () => {
-      openPopup(popupImageElement);
-      popupImageTitle.textContent = this._name;
-      popupImagePic.src = this._link;
-      popupImagePic.alt = this._name;
+      this._handleCardOpen(this._name, this._link);
     });
 
-    this._handleLikeButton();
-    this._handleDeleteButton();
+    this._element.querySelector('.element__like').addEventListener('click', (e) => {
+      this._handleLikeButton(e);
+    });
+
+    this._element.querySelector('.element__trash-icon').addEventListener('click', (e) => {
+      this._handleDeleteButton(e);
+    });
   }
 
   // Удаление карточки
-  _handleDeleteButton = () => {
-    const deleteButton = this._element.querySelector('.element__trash-icon');
-    deleteButton.addEventListener('click', (e) => {
-      e.target.closest('.element').remove();
-    });
+  _handleDeleteButton = (e) => {
+    e.target.closest('.element').remove();
   };
 
   // Лайки
-  _handleLikeButton = () => {
-    const likeButton = this._element.querySelector('.element__like');
-    likeButton.addEventListener('click', (e) => {
-      e.target.classList.toggle('element__like_active');
-    });
+  _handleLikeButton = (e) => {
+    e.target.classList.toggle('element__like_active');
   };
 }
 
