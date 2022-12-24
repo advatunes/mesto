@@ -20,45 +20,45 @@ _hasValidInput = (inputList) => {
 
 _checkInputValidity = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
-    this._showInputError(formElement, inputElement, inputElement.validationMessage);
+    this._showInputError(this._formElement, inputElement, inputElement.validationMessage);
   } else {
-    this._hideInputError(formElement, inputElement);
+    this._hideInputError(this._formElement, inputElement);
   }
 };
 
 // Включение и отключение submit
 _toggleButtonState = (inputList, buttonElement) => {
   if (this._hasValidInput(inputList)) {
-    buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.classList.remove(this._inactiveButtonClass);
     buttonElement.disabled = '';
   } else {
-    buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.classList.add(this._inactiveButtonClass);
     buttonElement.disabled = 'disabled';
   }
 };
 
 // Отображение ошибки
 _showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+  const errorElement = this._formElement.querySelector(`#${inputElement.name}-error`);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add(config.errorClass);
-  inputElement.classList.add(config.inputErrorClass);
+  errorElement.classList.add(this._errorClass);
+  inputElement.classList.add(this._inputErrorClass);
 };
 
 // Скрытие ошибки
 _hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
-  inputElement.classList.remove(config.inputErrorClass);
-  errorElement.classList.remove(config.errorClass);
+  const errorElement = this._formElement.querySelector(`#${inputElement.name}-error`);
+  inputElement.classList.remove(this._inputErrorClass);
+  errorElement.classList.remove(this._errorClass);
   errorElement.textContent = '';
 };
 
 // Добавление обработчиков
-_setEventListeners = (formElement, config) => {
-  const inputList = Array.from( formElement.querySelectorAll(config.inputSelector));
-  const buttonElement =  formElement.querySelector(config.submitButtonSelector);
+_setEventListeners = () => {
+  const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+  const buttonElement =  this._formElement.querySelector(this._submitButtonSelector);
   this._toggleButtonState(inputList, buttonElement);
-  formElement.addEventListener('reset', () => {
+  this._formElement.addEventListener('reset', () => {
     setTimeout(() => {
       this._toggleButtonState(inputList, buttonElement);
     }, 0);
@@ -69,19 +69,18 @@ _setEventListeners = (formElement, config) => {
     inputElement.addEventListener('input', () => {
       this._checkInputValidity(this._formElement, inputElement);
       this._toggleButtonState(inputList, buttonElement);
-      // console.log(this._checkInputValidity(formElement, inputElement));
     });
   });
 };
 
- enableValidation = (config, formElement) => {
-  // const { formSelector, ...rest } = config;
-  formElement.addEventListener('submit', (e) => e.preventDefault());
-  this._setEventListeners(formElement, config);
+ enableValidation = () => {
+  this._formElement.addEventListener('submit', (e) => e.preventDefault());
+  this._setEventListeners();
 
 };
 }
 
+// объект настроек
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -91,14 +90,12 @@ const config = {
   errorClass: 'popup__error_visible',
 };
 
-
+// Вызов валидации
 const formValidate = (() => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
-
   formList.forEach((formElement) => {
     const formValidator = new FormValidator(config, formElement)
-    formValidator.enableValidation(config, formElement);
-
+    formValidator.enableValidation();
   });
 })();
 
