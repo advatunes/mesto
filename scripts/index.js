@@ -1,4 +1,7 @@
 import { initialCards } from './initialCards.js';
+import { Card } from './Card.js';
+import { config } from './config.js';
+import { FormValidator } from './FormValidator.js';
 
 const popupNameElement = document.querySelector('.popup-name'),
   popupNameForm = popupNameElement.querySelector('.popup__form'),
@@ -24,9 +27,9 @@ const popupNameElement = document.querySelector('.popup-name'),
   popupImagePic = popupImageElement.querySelector('.popup-image__pic'),
   popupImageTitle = popupImageElement.querySelector('.popup-image__title');
 
-console.log();
 // Открытие попапа
 const openPopup = (popup) => {
+  clearValidation(popup);
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', handleKeyDown);
   popup.addEventListener('mousedown', handleOutsideClick);
@@ -34,12 +37,27 @@ const openPopup = (popup) => {
 
 // Закрытие попапа
 const closePopup = (popup) => {
+  clearFormInput(popup);
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleKeyDown);
   popup.removeEventListener('mousedown', handleOutsideClick);
 };
 
-// Кнопки откр профиля
+// Очистка инпутов
+const clearFormInput = (popup) => {
+  let inputs = popup.querySelectorAll('input');
+  inputs.forEach((input) => (input.value = ''));
+};
+
+// Очистка ошибок валидации
+const clearValidation = (popup) => {
+  let errorsSpan = popup.querySelectorAll('.popup__error');
+  errorsSpan.forEach((error) => error.classList.remove('popup__error_visible'));
+  let errorsInput = popup.querySelectorAll('input');
+  errorsInput.forEach((error) => error.classList.remove('popup__input_type_error'));
+};
+
+// Кнопки откр попапа профиля
 popupNameOpenButton.addEventListener('click', () => {
   openPopup(popupNameElement);
   // Перенос текстовых полей
@@ -47,7 +65,7 @@ popupNameOpenButton.addEventListener('click', () => {
   jobInput.value = profileJob.textContent;
 });
 
-// Кнопки откр элементов
+// Кнопки откр попапа добавления элементов
 popupPlaceOpenButton.addEventListener('click', () => {
   openPopup(popupPlaceElement);
 });
@@ -83,49 +101,24 @@ const editProfileValue = (e) => {
 
 popupNameForm.addEventListener('submit', editProfileValue);
 
-// Создание карточки
-const elementTemplate = document.querySelector('#element-template').content;
+// Увеличение картинки
 
-const createCard = (data) => {
-  const cardElement = elementTemplate.querySelector('.element').cloneNode(true),
-    cardElementImage = cardElement.querySelector('.element__image'),
-    cardElementTitle = cardElement.querySelector('.element__name');
-
-  cardElementTitle.textContent = data.name;
-  cardElementImage.src = data.link;
-  cardElementImage.alt = data.name;
-
-  // Вызов попапа увеличения картинки
-  cardElementImage.addEventListener('click', () => {
-    openPopup(popupImageElement);
-    popupImageTitle.textContent = data.name;
-    popupImagePic.src = data.link;
-    popupImagePic.alt = data.name;
-  });
-
-  // Лайки
-  const likeButton = cardElement.querySelector('.element__like');
-  likeButton.addEventListener('click', (e) => {
-    e.target.classList.toggle('element__like_active');
-  });
-
-  // Удаление карточки
-  const deleteButton = cardElement.querySelector('.element__trash-icon');
-  deleteButton.addEventListener('click', (e) => {
-    e.target.closest('.element').remove();
-  });
-
-  return cardElement;
+const handleCardOpen = (name, link) => {
+  openPopup(popupImageElement);
+  popupImageTitle.textContent = name;
+  popupImagePic.src = link;
+  popupImagePic.alt = name;
 };
 
 // Добавление карточки в верстку
 const renderCard = (data, elementsContainer) => {
-  const element = createCard(data);
-  elementsContainer.prepend(element);
+  const card = new Card(data, '#element-template', handleCardOpen);
+  const cardElement = card.generateCard();
+  elementsContainer.prepend(cardElement);
 };
 
 initialCards.forEach((data) => {
-  renderCard(data, elementsContainer);
+  renderCard(data, elementsContainer, handleCardOpen);
 });
 
 const addCard = (e) => {
@@ -141,3 +134,12 @@ const addCard = (e) => {
 };
 
 popupPlaceForm.addEventListener('submit', addCard);
+
+// Вызов валидации
+const formValidate = (() => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const formValidator = new FormValidator(config, formElement);
+    formValidator.enableValidation();
+  });
+})();
