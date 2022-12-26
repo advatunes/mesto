@@ -1,5 +1,6 @@
 class FormValidator {
   constructor(config, formElement) {
+    this._config = config;
     this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
@@ -26,22 +27,47 @@ class FormValidator {
     }
   };
 
-  // Включение и отключение submit
+  // Переключение submit
   _toggleButtonState = (inputList, buttonElement) => {
     if (this._hasValidInput(inputList)) {
-      buttonElement.classList.remove(this._inactiveButtonClass);
-      buttonElement.disabled = '';
+      this._enableSubmitButton(buttonElement);
     } else {
-      buttonElement.classList.add(this._inactiveButtonClass);
-      buttonElement.disabled = 'disabled';
+      this._disableSubmitButton(buttonElement);
     }
+  };
+
+  // Включение submit
+  _enableSubmitButton = (buttonElement) => {
+    buttonElement.classList.remove(this._inactiveButtonClass);
+    buttonElement.disabled = '';
+  };
+  // отключение submit
+  _disableSubmitButton = (buttonElement) => {
+    buttonElement.classList.add(this._inactiveButtonClass);
+    buttonElement.disabled = 'disabled';
+  };
+
+  // Очистка инпутов
+  clearFormInput = () => {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach((input) => {
+      input.value = '';
+    });
+  };
+
+  // Очистка ошибок валидации
+  clearValidation = () => {
+    const  errorsSpan = document.querySelectorAll('.popup__error');
+    errorsSpan.forEach((error) => error.classList.remove('popup__error_visible'));
+    const errorsInput = document.querySelectorAll('input');
+    errorsInput.forEach((error) => error.classList.remove('popup__input_type_error'));
   };
 
   // Отображение ошибки
   _showInputError = (inputElement, errorMessage) => {
     const errorElement = this._formElement.querySelector(`#${inputElement.name}-error`);
-    errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorClass);
+    errorElement.textContent = errorMessage;
     inputElement.classList.add(this._inputErrorClass);
   };
 
@@ -57,6 +83,7 @@ class FormValidator {
   _setEventListeners = () => {
     const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+    this._toggleButtonState(inputList, buttonElement);
     this._formElement.addEventListener('reset', () => {
       this._toggleButtonState(inputList, buttonElement);
     });

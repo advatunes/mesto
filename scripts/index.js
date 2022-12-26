@@ -6,8 +6,6 @@ import { FormValidator } from './FormValidator.js';
 const popupNameElement = document.querySelector('.popup-name'),
   popupNameForm = popupNameElement.querySelector('.popup__form'),
   popupNameOpenButton = document.querySelector('.profile__edit-button'),
-  closeButtons = document.querySelectorAll('.popup__close-icon'),
-  //
   nameInput = popupNameElement.querySelector('.popup-name__input-name'),
   jobInput = popupNameElement.querySelector('.popup-name__input-job'),
   profileName = document.querySelector('.profile__name'),
@@ -16,45 +14,39 @@ const popupNameElement = document.querySelector('.popup-name'),
   popupPlaceElement = document.querySelector('.popup-place'),
   popupPlaceForm = popupPlaceElement.querySelector('.popup__form'),
   popupPlaceOpenButton = document.querySelector('.profile__add-button'),
-  // popupPlaceCloseButton = popupPlaceElement.querySelector('.popup__close-icon'),
-  //
   elementsContainer = document.querySelector('.elements'),
   placeInput = popupPlaceElement.querySelector('.popup-place__input-place'),
   linkInput = popupPlaceElement.querySelector('.popup-place__input-link'),
   //
   popupImageElement = document.querySelector('.popup-image'),
-  // popupImageCloseButton = popupImageElement.querySelector('.popup__close-icon'),
   popupImagePic = popupImageElement.querySelector('.popup-image__pic'),
-  popupImageTitle = popupImageElement.querySelector('.popup-image__title');
+  popupImageTitle = popupImageElement.querySelector('.popup-image__title'),
+  //все попапы на странице
+  popupList = Array.from(document.querySelectorAll('.popup'));
+
+popupList.forEach((popup) => {
+  popup.addEventListener('mousedown', (event) => {
+    const targetClassList = event.target.classList;
+    if (targetClassList.contains('popup') || targetClassList.contains('popup__close-icon')) {
+      closePopup(popup);
+    }
+  });
+});
 
 // Открытие попапа
 const openPopup = (popup) => {
-  clearValidation(popup);
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', handleKeyDown);
-  popup.addEventListener('mousedown', handleOutsideClick);
+  formValidatorPopupName.clearFormInput();
+  formValidatorPopupName.clearValidation();
+  formValidatorPopupPlace.clearFormInput();
+  formValidatorPopupPlace.clearValidation();
 };
 
 // Закрытие попапа
 const closePopup = (popup) => {
-  clearFormInput(popup);
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleKeyDown);
-  popup.removeEventListener('mousedown', handleOutsideClick);
-};
-
-// Очистка инпутов
-const clearFormInput = (popup) => {
-  let inputs = popup.querySelectorAll('input');
-  inputs.forEach((input) => (input.value = ''));
-};
-
-// Очистка ошибок валидации
-const clearValidation = (popup) => {
-  let errorsSpan = popup.querySelectorAll('.popup__error');
-  errorsSpan.forEach((error) => error.classList.remove('popup__error_visible'));
-  let errorsInput = popup.querySelectorAll('input');
-  errorsInput.forEach((error) => error.classList.remove('popup__input_type_error'));
 };
 
 // Кнопки откр попапа профиля
@@ -68,12 +60,6 @@ popupNameOpenButton.addEventListener('click', () => {
 // Кнопки откр попапа добавления элементов
 popupPlaceOpenButton.addEventListener('click', () => {
   openPopup(popupPlaceElement);
-});
-
-// Кнопки закрытия
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
 });
 
 // Закрытие попапа по клавише Esc
@@ -136,10 +122,8 @@ const addCard = (e) => {
 popupPlaceForm.addEventListener('submit', addCard);
 
 // Вызов валидации
-const formValidate = (() => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((formElement) => {
-    const formValidator = new FormValidator(config, formElement);
-    formValidator.enableValidation();
-  });
-})();
+
+const formValidatorPopupName = new FormValidator(config, popupNameForm);
+formValidatorPopupName.enableValidation();
+const formValidatorPopupPlace = new FormValidator(config, popupPlaceForm);
+formValidatorPopupPlace.enableValidation();

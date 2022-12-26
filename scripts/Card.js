@@ -7,12 +7,10 @@ class Card {
   }
 
   _getTemplate() {
-    const cardElement = document
+    return document
       .querySelector(this._templateSelector)
       .content.querySelector('.element')
       .cloneNode(true);
-
-    return cardElement;
   }
 
   generateCard() {
@@ -41,8 +39,8 @@ class Card {
   }
 
   // Удаление карточки
-  _handleDeleteButton = (e) => {
-    e.target.closest('.element').remove();
+  _handleDeleteButton = () => {
+    this._element.remove();
   };
 
   // Лайки
