@@ -24,6 +24,7 @@ const popupNameElement = document.querySelector('.popup-name'),
   //все попапы на странице
   popupList = Array.from(document.querySelectorAll('.popup'));
 
+// Закрытие попапа по клику
 popupList.forEach((popup) => {
   popup.addEventListener('mousedown', (event) => {
     const targetClassList = event.target.classList;
@@ -37,10 +38,6 @@ popupList.forEach((popup) => {
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', handleKeyDown);
-  formValidatorPopupName.clearFormInput();
-  formValidatorPopupName.clearValidation();
-  formValidatorPopupPlace.clearFormInput();
-  formValidatorPopupPlace.clearValidation();
 };
 
 // Закрытие попапа
@@ -49,17 +46,26 @@ const closePopup = (popup) => {
   document.removeEventListener('keydown', handleKeyDown);
 };
 
-// Кнопки откр попапа профиля
+// Открытие попапа профиля
 popupNameOpenButton.addEventListener('click', () => {
   openPopup(popupNameElement);
+  // сброс инпутов и ошибки валидации
+  formValidatorPopupName.clearValidation();
+  formValidatorPopupName.clearFormInput();
+
   // Перенос текстовых полей
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
 
-// Кнопки откр попапа добавления элементов
+// Открытие попапа добавления элементов
 popupPlaceOpenButton.addEventListener('click', () => {
   openPopup(popupPlaceElement);
+  // сброс инпутов и ошибки валидации
+  formValidatorPopupPlace.clearValidation();
+  formValidatorPopupPlace.clearFormInput();
+  // переключение сабмита
+  formValidatorPopupPlace.toggleSubmitBtn();
 });
 
 // Закрытие попапа по клавише Esc
@@ -70,22 +76,12 @@ function handleKeyDown(e) {
   }
 }
 
-// Закрытие попапа по клику
-
-const handleOutsideClick = (e) => {
-  if (!e.target.closest('.popup__container')) {
-    closePopup(e.target);
-  }
-};
-
 const editProfileValue = (e) => {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(popupNameElement);
   e.preventDefault();
 };
-
-popupNameForm.addEventListener('submit', editProfileValue);
 
 // Увеличение картинки
 
@@ -114,11 +110,13 @@ const addCard = (e) => {
     link: linkInput.value,
   };
 
-  e.target.reset();
   renderCard(card, elementsContainer);
   closePopup(popupPlaceElement);
+  e.target.reset();
 };
 
+// Слушатели кнопок submit
+popupNameForm.addEventListener('submit', editProfileValue);
 popupPlaceForm.addEventListener('submit', addCard);
 
 // Вызов валидации
