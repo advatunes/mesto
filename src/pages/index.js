@@ -1,28 +1,28 @@
-import { initialCards } from './initialCards.js';
-import { Card } from './Card.js';
-import { config } from './config.js';
-import { FormValidator } from './FormValidator.js';
+import '../pages/index.css'
 
-const popupNameElement = document.querySelector('.popup-name'),
-  popupNameForm = popupNameElement.querySelector('.popup__form'),
-  popupNameOpenButton = document.querySelector('.profile__edit-button'),
-  nameInput = popupNameElement.querySelector('.popup-name__input-name'),
-  jobInput = popupNameElement.querySelector('.popup-name__input-job'),
-  profileName = document.querySelector('.profile__name'),
-  profileJob = document.querySelector('.profile__job'),
-  //
-  popupPlaceElement = document.querySelector('.popup-place'),
-  popupPlaceForm = popupPlaceElement.querySelector('.popup__form'),
-  popupPlaceOpenButton = document.querySelector('.profile__add-button'),
-  elementsContainer = document.querySelector('.elements'),
-  placeInput = popupPlaceElement.querySelector('.popup-place__input-place'),
-  linkInput = popupPlaceElement.querySelector('.popup-place__input-link'),
-  //
-  popupImageElement = document.querySelector('.popup-image'),
-  popupImagePic = popupImageElement.querySelector('.popup-image__pic'),
-  popupImageTitle = popupImageElement.querySelector('.popup-image__title'),
-  //все попапы на странице
-  popupList = Array.from(document.querySelectorAll('.popup'));
+import { initialCards } from '../scripts/initialCards.js';
+import { Card } from '../scripts/Card.js';
+import { config } from '../scripts/config.js';
+import { FormValidator } from '../scripts/FormValidator.js';
+
+import {
+  popupNameElement,
+  popupNameForm,
+  popupNameOpenButton,
+  nameInput,
+  jobInput,
+  profileName,
+  profileJob,
+  popupPlaceElement,
+  popupPlaceForm,
+  popupPlaceOpenButton,
+  elementsContainer,
+  linkInput,
+  popupImageElement,
+  popupImagePic,
+  popupImageTitle,
+  popupList
+} from '../utils/constants.js'
 
 // Закрытие попапа по клику
 popupList.forEach((popup) => {

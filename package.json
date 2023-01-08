@@ -1,0 +1,38 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "------\r Проектная работа - одностраничный сайт с адаптивным дизайном и всплывающим модальном окном для яндекс.практикум с карточкой пользователя и фотографиями мест для путешествий\r ------\r https://advatunes.github.io/mesto/\r ------\r В проекте использованы\r * Семантический HTML-код\r * Файловая структура по БЭМ (Nested)\r * Flexbox\r * Grid\r * Использование медиа-запросов @media для создания адаптивного дизайна под разные экраны устройств\r * Javascript для реализация всплывающего окна и редактирования информации о пользователе\r * Добавление новых элементов через всплывающее окно с помощью Javascript\r * Реализация проверки валидности полей ввода с использованием JS-свойства ValidityState",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/advatunes/mesto.git"
+  },
+  "author": "dmitriy nikonov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/advatunes/mesto/issues"
+  },
+  "homepage": "https://github.com/advatunes/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "autoprefixer": "^10.4.13",
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.3",
+    "cssnano": "^5.1.14",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.2",
+    "postcss-loader": "^7.0.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "core-js": "^3.27.1"
+  }
+}
