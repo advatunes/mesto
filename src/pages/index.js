@@ -1,9 +1,13 @@
 import '../pages/index.css'
 
-import { initialCards } from '../scripts/initialCards.js';
-import { Card } from '../scripts/Card.js';
-import { config } from '../scripts/config.js';
-import { FormValidator } from '../scripts/FormValidator.js';
+import { initialCards } from '../utils/constants.js';
+import { config } from '../utils/constants.js';
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { Section } from '../components/Section.js';
+import { UserInfo } from '../components/UserInfo.js';
 
 import {
   popupNameElement,
@@ -17,111 +21,80 @@ import {
   popupPlaceForm,
   popupPlaceOpenButton,
   elementsContainer,
-  linkInput,
   popupImageElement,
-  popupImagePic,
-  popupImageTitle,
-  popupList
 } from '../utils/constants.js'
-
-// Закрытие попапа по клику
-popupList.forEach((popup) => {
-  popup.addEventListener('mousedown', (event) => {
-    const targetClassList = event.target.classList;
-    if (targetClassList.contains('popup') || targetClassList.contains('popup__close-icon')) {
-      closePopup(popup);
-    }
-  });
-});
-
-// Открытие попапа
-const openPopup = (popup) => {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', handleKeyDown);
-};
-
-// Закрытие попапа
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', handleKeyDown);
-};
-
-// Открытие попапа профиля
-popupNameOpenButton.addEventListener('click', () => {
-  openPopup(popupNameElement);
-  // сброс инпутов и ошибки валидации
-  formValidatorPopupName.clearValidation();
-  formValidatorPopupName.clearFormInput();
-
-  // Перенос текстовых полей
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-});
-
-// Открытие попапа добавления элементов
-popupPlaceOpenButton.addEventListener('click', () => {
-  openPopup(popupPlaceElement);
-  // сброс инпутов и ошибки валидации
-  formValidatorPopupPlace.clearValidation();
-  formValidatorPopupPlace.clearFormInput();
-  // переключение сабмита
-  formValidatorPopupPlace.toggleSubmitBtn();
-});
-
-// Закрытие попапа по клавише Esc
-function handleKeyDown(e) {
-  if (e.key === 'Escape') {
-    const popup = document.querySelector('.popup_opened');
-    closePopup(popup);
-  }
-}
-
-const editProfileValue = (e) => {
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  closePopup(popupNameElement);
-  e.preventDefault();
-};
-
-// Увеличение картинки
-
-const handleCardOpen = (name, link) => {
-  openPopup(popupImageElement);
-  popupImageTitle.textContent = name;
-  popupImagePic.src = link;
-  popupImagePic.alt = name;
-};
-
-// Добавление карточки в верстку
-const renderCard = (data, elementsContainer) => {
-  const card = new Card(data, '#element-template', handleCardOpen);
-  const cardElement = card.generateCard();
-  elementsContainer.prepend(cardElement);
-};
-
-initialCards.forEach((data) => {
-  renderCard(data, elementsContainer, handleCardOpen);
-});
-
-const addCard = (e) => {
-  e.preventDefault();
-  const card = {
-    name: placeInput.value,
-    link: linkInput.value,
-  };
-
-  renderCard(card, elementsContainer);
-  closePopup(popupPlaceElement);
-  e.target.reset();
-};
-
-// Слушатели кнопок submit
-popupNameForm.addEventListener('submit', editProfileValue);
-popupPlaceForm.addEventListener('submit', addCard);
 
 // Вызов валидации
 
-const formValidatorPopupName = new FormValidator(config, popupNameForm);
+export const formValidatorPopupName = new FormValidator(config, popupNameForm);
 formValidatorPopupName.enableValidation();
-const formValidatorPopupPlace = new FormValidator(config, popupPlaceForm);
+export const formValidatorPopupPlace = new FormValidator(config, popupPlaceForm);
 formValidatorPopupPlace.enableValidation();
+
+const handleCardClick = (name, link) => {
+  popupImage.open(name, link);
+};
+
+// Добавление карточки в верстку
+const renderCard = (data) => {
+  const card = new Card(data, '#element-template', handleCardClick);
+  const cardElement = card.generateCard();
+  cardList.addItem(cardElement);
+};
+
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, '#element-template', handleCardClick);
+      const cardElement = card.generateCard();
+      cardList.addItem(cardElement);
+    },
+  },
+
+  elementsContainer
+);
+
+cardList.renderItems();
+
+const userData = new UserInfo({ profileName, profileJob });
+
+const popupImage = new PopupWithImage(popupImageElement);
+popupImage.setEventListeners();
+
+const popupName = new PopupWithForm(
+  {
+    handleFormSubmit: (data) => {
+      userData.setUserInfo(data);
+    },
+  },
+  popupNameElement
+);
+
+popupName.setEventListeners();
+
+popupNameOpenButton.addEventListener('click', () => {
+  popupName.open();
+  nameInput.value = userData.getUserInfo().profileName;
+  jobInput.value = userData.getUserInfo().profileJob;
+});
+
+const popupPlace = new PopupWithForm(
+  {
+    handleFormSubmit: (data) => {
+      let card = {
+        name: data.place,
+        link: data.link,
+      };
+      renderCard(card);
+    },
+  },
+  popupPlaceElement
+);
+
+popupPlace.setEventListeners();
+
+popupPlaceOpenButton.addEventListener('click', () => {
+  popupPlace.open();
+  formValidatorPopupPlace.toggleSubmitBtn();
+});

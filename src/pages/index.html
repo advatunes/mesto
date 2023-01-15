@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
+    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="root">
     <header class="header">
@@ -29,7 +30,6 @@
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавить карточку"></button>
       </section>
-
       <section class="elements"></section>
     </main>
 
@@ -45,22 +45,22 @@
 
           <input
             class="popup__input popup-name__input-name"
-            name="name-input"
+            name="name"
             type="text"
             minlength="2"
             maxlength="40"
             required
           />
-          <span class="popup__error" id="name-input-error"></span>
+          <span class="popup__error" id="name-error"></span>
           <input
             class="popup__input popup-name__input-job"
-            name="job-input"
+            name="job"
             type="text"
             minlength="2"
             maxlength="200"
             required
           />
-          <span class="popup__error" id="job-input-error"></span>
+          <span class="popup__error" id="job-error"></span>
 
           <button class="popup__submit popup__submit_name" type="submit" aria-label="Сохранить">
             Сохранить
@@ -78,24 +78,24 @@
           <label class="popup__form-field">
             <input
               class="popup__input popup-place__input-place"
-              name="place-input"
+              name="place"
               placeholder="Название"
               type="text"
               minlength="2"
               maxlength="30"
               required
             />
-            <span class="popup__error" id="place-input-error"></span>
+            <span class="popup__error" id="place-error"></span>
           </label>
           <label class="popup__form-field">
             <input
               class="popup__input popup-place__input-link"
-              name="link-input"
+              name="link"
               placeholder="Ссылка на картинку"
               type="url"
               required
             />
-            <span class="popup__error" id="link-input-error"></span>
+            <span class="popup__error" id="link-error"></span>
           </label>
 
           <button class="popup__submit popup__submit_place" type="submit" aria-label="Сохранить">
@@ -126,5 +126,6 @@
       </article>
     </template>
 
+    <script type="module" src="./scripts/index.js" defer></script>
   </body>
 </html>
