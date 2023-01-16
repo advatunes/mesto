@@ -13,10 +13,9 @@ export const popupNameElement = document.querySelector('.popup-name'),
   placeInput = popupPlaceElement.querySelector('.popup-place__input-place'),
   linkInput = popupPlaceElement.querySelector('.popup-place__input-link'),
   //
-  popupImageElement = document.querySelector('.popup-image'),
-  popupImagePic = popupImageElement.querySelector('.popup-image__pic'),
-  popupImageTitle = popupImageElement.querySelector('.popup-image__title')
-  
+  popupImageElement = document.querySelector('.popup-image')
+
+
 //карточки по умолчанию
 export const initialCards = [
     {

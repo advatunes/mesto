@@ -1,11 +1,11 @@
 import { Popup } from './Popup.js';
-import { formValidatorPopupName } from '../pages/index.js';
-import { formValidatorPopupPlace } from '../pages/index.js';
 
 export class PopupWithForm extends Popup {
-    constructor({ handleFormSubmit }, popupSelector) {
-      super(popupSelector);
+    constructor({ handleFormSubmit }, popup) {
+      super(popup);
       this._handleFormSubmit = handleFormSubmit;
+      this._inputList = this._popup.querySelectorAll('.popup__input');
+      this._form = this._popup.querySelector('.popup__form');
     }
 
     open() {
@@ -14,16 +14,10 @@ export class PopupWithForm extends Popup {
 
     close() {
       super.close();
-      formValidatorPopupName.clearValidation();
-      formValidatorPopupName.clearFormInput();
-
-      formValidatorPopupPlace.clearValidation();
-      formValidatorPopupPlace.clearFormInput();
+      this._form.reset();
     }
 
     _getInputValues() {
-      this._inputList = this._popupSelector.querySelectorAll('.popup__input');
-
       this._formValues = {};
       this._inputList.forEach((input) => {
         this._formValues[input.name] = input.value;
@@ -33,7 +27,7 @@ export class PopupWithForm extends Popup {
 
     setEventListeners() {
       super.setEventListeners();
-      this._popupSelector.addEventListener('submit', (evt) => {
+      this._popup.addEventListener('submit', (evt) => {
         evt.preventDefault();
         this._handleFormSubmit(this._getInputValues());
         this.close();

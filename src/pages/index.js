@@ -1,4 +1,4 @@
-import '../pages/index.css'
+import '../pages/index.css';
 
 import { initialCards } from '../utils/constants.js';
 import { config } from '../utils/constants.js';
@@ -22,7 +22,7 @@ import {
   popupPlaceOpenButton,
   elementsContainer,
   popupImageElement,
-} from '../utils/constants.js'
+} from '../utils/constants.js';
 
 // Вызов валидации
 
@@ -39,16 +39,20 @@ const handleCardClick = (name, link) => {
 const renderCard = (data) => {
   const card = new Card(data, '#element-template', handleCardClick);
   const cardElement = card.generateCard();
-  cardList.addItem(cardElement);
+
+  return cardElement;
+};
+
+const addCard = (card) => {
+  cardList.addItem(card);
 };
 
 const cardList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item, '#element-template', handleCardClick);
-      const cardElement = card.generateCard();
-      cardList.addItem(cardElement);
+      renderCard(item);
+      addCard(renderCard(item));
     },
   },
 
@@ -77,6 +81,7 @@ popupNameOpenButton.addEventListener('click', () => {
   popupName.open();
   nameInput.value = userData.getUserInfo().profileName;
   jobInput.value = userData.getUserInfo().profileJob;
+  formValidatorPopupName.clearValidation()
 });
 
 const popupPlace = new PopupWithForm(
@@ -87,6 +92,7 @@ const popupPlace = new PopupWithForm(
         link: data.link,
       };
       renderCard(card);
+      addCard(renderCard(card));
     },
   },
   popupPlaceElement
@@ -97,4 +103,5 @@ popupPlace.setEventListeners();
 popupPlaceOpenButton.addEventListener('click', () => {
   popupPlace.open();
   formValidatorPopupPlace.toggleSubmitBtn();
+  formValidatorPopupPlace.clearValidation()
 });
