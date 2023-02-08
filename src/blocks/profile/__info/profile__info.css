@@ -1,20 +1,19 @@
 .profile__info {
-  max-width: 340px;
+  max-width: 360px;
   margin-right: 230px;
-  margin-left: 30px;
-  justify-self: start;
+  margin-left: 20px;
 }
 
 @media screen and (max-width: 900px) {
   .profile__info {
-
     margin-right: 20px;
   }
 }
 
-@media screen and (max-width: 568px) {
+@media screen and (max-width: 640px) {
   .profile__info {
-    max-width:280px;
+    margin: 26px auto 30px;
+    max-width: 280px;
   }
 }
 

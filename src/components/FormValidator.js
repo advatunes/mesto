@@ -1,4 +1,4 @@
-class FormValidator {
+export class FormValidator {
   constructor(config, formElement) {
     this._config = config;
     this._inputSelector = config.inputSelector;
@@ -73,23 +73,29 @@ class FormValidator {
     });
   };
 
- // Очистка ошибок валидации
- clearValidation = () => {
-  this._inputList.forEach((input) => {
-    if (input.classList.contains(this._inputErrorClass)) {
-      this._hideInputError(input);
-    }
-  });
-};
+  // Очистка ошибок валидации
+  clearValidation = () => {
+    this._inputList.forEach((input) => {
+      if (input.classList.contains(this._inputErrorClass)) {
+        this._hideInputError(input);
+      }
+    });
+  };
+
+  // Очистка инпутов
+  clearFormInput = () => {
+    this._inputList.forEach((input) => {
+      input.value = '';
+    });
+  };
 
   toggleSubmitBtn = () => {
     this._toggleButtonState();
-  }
+  };
 
   enableValidation = () => {
-    // this._formElement.addEventListener('submit', (e) => e.preventDefault());
     this._setEventListeners();
   };
 }
 
-export { FormValidator };
+

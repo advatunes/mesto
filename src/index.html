@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="root">
     <header class="header">
@@ -16,26 +15,23 @@
 
     <main class="content">
       <section class="profile content__profile">
+        <img class="profile__avatar"  alt="аватар"  src="#"/>
+        <div class="profile__avatar-hover"></div>
 
-        <div class="profile__wrap">
-          <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="аватар" />
-          <div class="profile__info">
-            <div class="profile__name-wrap">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button
-                class="profile__edit-button"
-                type="button"
-                aria-label="Редактировать профиль"
-              ></button>
-            </div>
-            <p class="profile__job">Исследователь океана</p>
+        <div class="profile__info">
+          <div class="profile__name-wrap">
+            <h1 class="profile__name"></h1>
+            <button
+              class="profile__edit-button"
+              type="button"
+              aria-label="Редактировать профиль"
+            ></button>
           </div>
-
+          <p class="profile__job"></p>
         </div>
-
-
         <button class="profile__add-button" type="button" aria-label="Добавить карточку"></button>
       </section>
+
       <section class="elements"></section>
     </main>
 
@@ -113,6 +109,40 @@
       </div>
     </div>
 
+    <div class="popup popup-avatar">
+      <div class="popup__container">
+        <form class="popup__form" name="popupForm" novalidate>
+          <h2 class="popup__title">Обновить аватар</h2>
+
+          <input
+            class="popup__input popup-avatar__input-link"
+            name="avatar"
+            placeholder="Ссылка на аватар"
+            type="url"
+            required
+          />
+          <span class="popup__error" id="avatar-error"></span>
+
+          <button class="popup__submit popup__submit_avatar" type="submit" aria-label="Сохранить">
+            Сохранить
+          </button>
+          <button class="popup__close-icon" type="button" aria-label="закрыть"></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup-withSubmit">
+      <div class="popup__container">
+        <form class="popup__form" name="popupForm" novalidate>
+          <h2 class="popup__title">Вы уверены?</h2>
+          <button class="popup__submit popup-withSubmit" type="submit" aria-label="Да">
+            Да
+          </button>
+          <button class="popup__close-icon" type="button" aria-label="Да"></button>
+        </form>
+      </div>
+    </div>
+
     <div class="popup popup-image">
       <div class="popup-image__container">
         <img class="popup-image__pic" src="#" alt="#" />
@@ -127,11 +157,14 @@
         <button class="element__trash-icon" type="button" aria-label="удалить"></button>
         <div class="element__info">
           <h2 class="element__name"></h2>
-          <button class="element__like" type="button" aria-label="лайк"></button>
+          <div class="element__like">
+            <button class="element__like-btn" type="button" aria-label="лайк"></button>
+            <p class="element__like-counter">0</p>
+          </div>
+
         </div>
       </article>
     </template>
 
-    <script type="module" src="./scripts/index.js" defer></script>
   </body>
 </html>
