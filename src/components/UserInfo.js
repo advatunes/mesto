@@ -8,12 +8,8 @@ export class UserInfo {
     this._profileJob = profileJob;
   }
 
-  get id() {
+  getUserid() {
     return this._id;
-  }
-
-  set id(data) {
-    this._id = data;
   }
 
   getUserInfo() {
@@ -24,12 +20,10 @@ export class UserInfo {
     return userInfoFields;
   }
 
-  setUserInfo(data) {
-    profileName.textContent = data.name;
-    profileJob.textContent = data.about;
-  }
-
-  setUserAvatar(data) {
-    popupAvatarImg.src = data;
+  setUserInfo({ name, about, avatar, _id }) {
+    profileName.textContent = name;
+    profileJob.textContent = about;
+    popupAvatarImg.src = avatar;
+    this._id = _id;
   }
 }

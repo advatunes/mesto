@@ -14,3 +14,5 @@ export class PopupWithImage extends Popup {
     this._imagePic.alt = name;
   }
 }
+
+
