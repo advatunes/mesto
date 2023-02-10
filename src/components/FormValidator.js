@@ -82,13 +82,6 @@ export class FormValidator {
     });
   };
 
-  // Очистка инпутов
-  clearFormInput = () => {
-    this._inputList.forEach((input) => {
-      input.value = '';
-    });
-  };
-
   toggleSubmitBtn = () => {
     this._toggleButtonState();
   };
@@ -97,5 +90,3 @@ export class FormValidator {
     this._setEventListeners();
   };
 }
-
-

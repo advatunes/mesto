@@ -23,6 +23,12 @@ export class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
+  }
+
   preload(isLoading) {
     if (isLoading) {
       this._submit.textContent = 'Сохранение..';

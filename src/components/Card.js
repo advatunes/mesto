@@ -14,6 +14,8 @@ export class Card {
     this._userId = userId;
     this._handleLikeClick = handleLikeClick;
     this._handleDeleteIconClick = handleDeleteIconClick;
+    this._element = this._getTemplate();
+    this._cardLikeIcon = this._element.querySelector('.element__like-btn');
   }
 
   getCardId() {
@@ -28,7 +30,6 @@ export class Card {
   }
 
   generateCard() {
-    this._element = this._getTemplate();
     this._setEventListeners();
 
     this._element.querySelector('.element__like-counter').textContent = this._likes.length;
@@ -36,6 +37,13 @@ export class Card {
     this._element.querySelector('.element__image').alt = this._name;
     this._element.querySelector('.element__name').textContent = this._name;
 
+    if (this.isLiked()) {
+      this._handleLikeButton();
+    }
+
+    if (this._ownerId !== this._userId) {
+      this._element.querySelector('.element__trash-icon').remove();
+    }
     return this._element;
   }
 
@@ -46,32 +54,26 @@ export class Card {
   updateCount(res) {
     this._element.querySelector('.element__like-counter').textContent = res.likes.length;
     this._likes = res.likes;
+    this._handleLikeButton();
   }
 
-  hideDeleteButton() {
-    if (this._ownerId !== this._userId) {
-      this._element.querySelector('.element__trash-icon').remove();
-    }
+  _handleLikeButton() {
+    this._cardLikeIcon.classList.toggle('element__like-btn_active');
   }
 
   deleteCard() {
     this._element.remove();
   }
 
-  addLikeOnLoadCard() {
-    if (this.isLiked()) {
-      this._element.querySelector('.element__like-btn').classList.add('element__like-btn_active');
-    }
-  }
-
   _setEventListeners() {
     this._element.querySelector('.element__image').addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
+      console.log(this._cardLikeIcon);
+      this._handleLikeButton(this);
     });
 
-    this._element.querySelector('.element__like-btn').addEventListener('click', (e) => {
+    this._cardLikeIcon.addEventListener('click', () => {
       this._handleLikeClick(this);
-      e.target.classList.toggle('element__like-btn_active');
     });
 
     this._element.querySelector('.element__trash-icon').addEventListener('click', () => {

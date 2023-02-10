@@ -1,11 +1,8 @@
-import { profileName } from '../utils/constants.js';
-import { profileJob } from '../utils/constants.js';
-import { popupAvatarImg } from '../utils/constants.js';
-
 export class UserInfo {
-  constructor({ profileName, profileJob }) {
-    this._profileName = profileName;
-    this._profileJob = profileJob;
+  constructor({ profileName, profileJob, profileAvatar }) {
+    this._profileName = document.querySelector(profileName);
+    this._profileJob = document.querySelector(profileJob);
+    this._profileAvatar = document.querySelector(profileAvatar);
   }
 
   getUserid() {
@@ -14,16 +11,16 @@ export class UserInfo {
 
   getUserInfo() {
     const userInfoFields = {
-      profileName: this._profileName.textContent,
-      profileJob: this._profileJob.textContent,
+      name: this._profileName.textContent,
+      job: this._profileJob.textContent,
     };
     return userInfoFields;
   }
 
   setUserInfo({ name, about, avatar, _id }) {
-    profileName.textContent = name;
-    profileJob.textContent = about;
-    popupAvatarImg.src = avatar;
+    this._profileName.textContent = name;
+    this._profileJob.textContent = about;
+    this._profileAvatar.src = avatar;
     this._id = _id;
   }
 }

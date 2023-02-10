@@ -12,26 +12,27 @@ import { UserInfo } from '../components/UserInfo.js';
 
 import {
   popupNameElement,
-  popupNameForm,
   popupNameOpenButton,
-  nameInput,
-  jobInput,
-  profileName,
-  profileJob,
   popupPlaceElement,
-  popupPlaceForm,
   popupPlaceOpenButton,
   elementsContainer,
   popupAvatarElement,
-  popupAvatarForm,
   popupAvatarImg,
   popupWithSubmitElement,
-  popupImageElement
+  popupImageElement,
 } from '../utils/constants.js';
 
-const formValidatorPopupAvatar = new FormValidator(config, popupAvatarForm);
-const formValidatorPopupName = new FormValidator(config, popupNameForm);
-const formValidatorPopupPlace = new FormValidator(config, popupPlaceForm);
+const formValidators = {};
+const enableValidation = (config) => {
+  const formList = document.querySelectorAll(config.formSelector);
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+enableValidation(config);
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-59',
@@ -41,16 +42,16 @@ const api = new Api({
   },
 });
 
-const userData = new UserInfo({ profileName, profileJob });
+const userData = new UserInfo({
+  profileName: '.profile__name',
+  profileJob: '.profile__job',
+  profileAvatar: '.profile__avatar',
+});
 
 Promise.all([api.getUserData(), api.getInitialCards()])
   .then(([getUserData, getInitialCards]) => {
     userData.setUserInfo(getUserData);
-
     cardList.renderItems(getInitialCards.reverse());
-    formValidatorPopupName.enableValidation();
-    formValidatorPopupPlace.enableValidation();
-    formValidatorPopupAvatar.enableValidation();
   })
   .catch((err) => {
     console.log(err);
@@ -63,16 +64,12 @@ const renderCard = (data) => {
   );
 
   const cardElement = card.generateCard();
-
-  card.addLikeOnLoadCard();
-  card.hideDeleteButton();
   return cardElement;
 };
 
 const cardList = new Section(
   {
     renderer: (item) => {
-      renderCard(item);
       cardList.addItem(renderCard(item));
     },
   },
@@ -158,10 +155,9 @@ const popupName = new PopupWithForm(
 popupName.setEventListeners();
 
 popupNameOpenButton.addEventListener('click', () => {
+  popupName.setInputValues(userData.getUserInfo());
+  formValidators['popup-name'].clearValidation();
   popupName.open();
-  nameInput.value = userData.getUserInfo().profileName;
-  jobInput.value = userData.getUserInfo().profileJob;
-  formValidatorPopupName.clearValidation();
 });
 
 const popupPlace = new PopupWithForm(
@@ -191,9 +187,8 @@ const popupPlace = new PopupWithForm(
 popupPlace.setEventListeners();
 
 popupPlaceOpenButton.addEventListener('click', () => {
+  formValidators['popup-place'].clearValidation();
   popupPlace.open();
-  formValidatorPopupPlace.toggleSubmitBtn();
-  formValidatorPopupPlace.clearValidation();
 });
 
 const popupAvatar = new PopupWithForm(
@@ -202,8 +197,8 @@ const popupAvatar = new PopupWithForm(
       popupAvatar.preload(true);
       api
         .editAvatar(data)
-        .then(() => {
-          popupAvatarImg.src = data.avatar;
+        .then((res) => {
+          userData.setUserInfo(res);
           popupAvatar.close();
         })
         .catch((err) => {
@@ -219,10 +214,6 @@ const popupAvatar = new PopupWithForm(
 
 popupAvatar.setEventListeners();
 popupAvatarImg.addEventListener('click', () => {
+  formValidators['popup-avatar'].clearValidation();
   popupAvatar.open();
-  formValidatorPopupAvatar.toggleSubmitBtn();
-  formValidatorPopupAvatar.clearValidation();
 });
-
-
-
