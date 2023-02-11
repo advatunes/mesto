@@ -75,6 +75,7 @@ export class FormValidator {
 
   // Очистка ошибок валидации
   clearValidation = () => {
+    this._toggleButtonState();
     this._inputList.forEach((input) => {
       if (input.classList.contains(this._inputErrorClass)) {
         this._hideInputError(input);
@@ -82,9 +83,7 @@ export class FormValidator {
     });
   };
 
-  toggleSubmitBtn = () => {
-    this._toggleButtonState();
-  };
+ 
 
   enableValidation = () => {
     this._setEventListeners();

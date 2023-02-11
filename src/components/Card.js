@@ -16,6 +16,9 @@ export class Card {
     this._handleDeleteIconClick = handleDeleteIconClick;
     this._element = this._getTemplate();
     this._cardLikeIcon = this._element.querySelector('.element__like-btn');
+    this._cardImage = this._element.querySelector('.element__image');
+    this._cardLikeCounter= this._element.querySelector('.element__like-counter')
+    this._cardTrashIcon = this._element.querySelector('.element__trash-icon')
   }
 
   getCardId() {
@@ -30,20 +33,19 @@ export class Card {
   }
 
   generateCard() {
-    this._setEventListeners();
-
-    this._element.querySelector('.element__like-counter').textContent = this._likes.length;
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._name;
-    this._element.querySelector('.element__name').textContent = this._name;
+    this._cardLikeCounter.textContent = this._likes.length;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._cardImage.textContent = this._name;
 
     if (this.isLiked()) {
       this._handleLikeButton();
     }
 
     if (this._ownerId !== this._userId) {
-      this._element.querySelector('.element__trash-icon').remove();
+      this._cardTrashIcon.remove();
     }
+    this._setEventListeners();
     return this._element;
   }
 
@@ -52,7 +54,7 @@ export class Card {
   }
 
   updateCount(res) {
-    this._element.querySelector('.element__like-counter').textContent = res.likes.length;
+    this._cardLikeCounter.textContent = res.likes.length;
     this._likes = res.likes;
     this._handleLikeButton();
   }
@@ -68,7 +70,6 @@ export class Card {
   _setEventListeners() {
     this._element.querySelector('.element__image').addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
-      console.log(this._cardLikeIcon);
       this._handleLikeButton(this);
     });
 
@@ -76,7 +77,7 @@ export class Card {
       this._handleLikeClick(this);
     });
 
-    this._element.querySelector('.element__trash-icon').addEventListener('click', () => {
+    this._cardTrashIcon.addEventListener('click', () => {
       this._handleDeleteIconClick(this);
     });
   }
