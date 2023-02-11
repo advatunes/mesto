@@ -70,7 +70,6 @@ export class Card {
   _setEventListeners() {
     this._element.querySelector('.element__image').addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
-      this._handleLikeButton(this);
     });
 
     this._cardLikeIcon.addEventListener('click', () => {
