@@ -6,6 +6,7 @@
   cursor: pointer;
   transition: opacity .2s;
   position: relative;
+  text-align: center;
 }
 
 .profile__avatar:hover {

@@ -19,6 +19,7 @@ export class Card {
     this._cardImage = this._element.querySelector('.element__image');
     this._cardLikeCounter= this._element.querySelector('.element__like-counter')
     this._cardTrashIcon = this._element.querySelector('.element__trash-icon')
+    this._cardTitle = this._element.querySelector('.element__name')
   }
 
   getCardId() {
@@ -36,7 +37,7 @@ export class Card {
     this._cardLikeCounter.textContent = this._likes.length;
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
-    this._cardImage.textContent = this._name;
+    this._cardTitle.textContent = this._name;
 
     if (this.isLiked()) {
       this._handleLikeButton();
